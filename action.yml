@@ -1,0 +1,22 @@
+name: "Fork Sync JS"
+description: "Code to keep forked repository sync with GitHub Actions"
+inputs:
+  UPSTREAM_USER: # id of input
+    description: "Origin repository user"
+    required: true
+  UPSTREAM_REPO:
+    description: "Origin repository"
+    required: true
+  FORKED_USER:
+    description: "Forked repository user"
+    required: true
+  FORKED_REPO:
+    description: "Forked repository"
+    required: true
+  USER_TOKEN:
+    description: "User token"
+    required: true
+
+runs:
+  using: "node12"
+  main: "index.js"
