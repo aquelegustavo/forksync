@@ -4,7 +4,8 @@
   "description": "Code to keep forked repository sync with GitHub Actions",
   "main": "index.js",
   "scripts": {
-    "test": "teste"
+    "test": "test",
+    "build": "ncc build index.js --license licenses.txt"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "dependencies": {
     "@actions/core": "^1.6.0",
     "axios": "^0.24.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.33.1"
   }
 }
