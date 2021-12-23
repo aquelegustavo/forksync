@@ -37,7 +37,7 @@ function getLastCommit(user, repo, token) {
     method: "get",
     url: url,
     headers: {
-      Authorization: "Bearer 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",
+      Authorization: `Bearer ${token}`,
     },
   };
 
@@ -55,7 +55,7 @@ function updateRepository(user, repo, token, sha) {
     method: "patch",
     url: url,
     headers: {
-      Authorization: "Bearer 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",
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     data: data,
