@@ -4738,42 +4738,34 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const axios = __nccwpck_require__(6545);
 
-try {
-  let UPSTREAM_USER = core.getInput("UPSTREAM_USER", { required: true }),
-    UPSTREAM_REPO = core.getInput("UPSTREAM_REPO", { required: true }),
-    FORKED_USER = core.getInput("FORKED_USER", { required: true }),
-    FORKED_REPO = core.getInput("FORKED_REPO", { required: true }),
-    USER_TOKEN = core.getInput("USER_TOKEN", { required: true });
+let UPSTREAM_USER = core.getInput("UPSTREAM_USER", { required: true }),
+  UPSTREAM_REPO = core.getInput("UPSTREAM_REPO", { required: true }),
+  FORKED_USER = core.getInput("FORKED_USER", { required: true }),
+  FORKED_REPO = core.getInput("FORKED_REPO", { required: true }),
+  USER_TOKEN = core.getInput("USER_TOKEN", { required: true });
 
-  core.startGroup("Do some function");
-  console.log("Obtendo último commit do repositório original");
-  core.endGroup();
+console.log("Obtendo último commit do repositório original");
 
-  getLastCommit(UPSTREAM_USER, UPSTREAM_REPO, USER_TOKEN)
-    .then((response) => {
-      console.log(response.status);
-      let sha = response.data.object.sha;
-      console.log("SHA: ", sha);
+getLastCommit(UPSTREAM_USER, UPSTREAM_REPO, USER_TOKEN)
+  .then((response) => {
+    console.log(response.status);
+    let sha = response.data.object.sha;
+    console.log("SHA: ", sha);
 
-      core.startGroup("Atualizando repositório fork");
+    console.log("Atualizando repositório fork");
 
-      updateRepository(FORKED_USER, FORKED_REPO, USER_TOKEN, sha)
-        .then((response) => {
-          console.log(response.status);
-          console.log("DATA: ", response.data);
-        })
-        .catch((error) => {
-          throw error;
-        });
-      core.endGroup();
-    })
-    .catch((error) => {
-      throw error;
-    });
-} catch (error) {
-  console.error(error.data);
-  core.setFailed(`Action failed with error ${err}`);
-}
+    updateRepository(FORKED_USER, FORKED_REPO, USER_TOKEN, sha)
+      .then((response) => {
+        console.log(response.status);
+        console.log("DATA: ", response.data);
+      })
+      .catch((error) => {
+        core.setFailed(`Action failed with error ${error}`);
+      });
+  })
+  .catch((error) => {
+    core.setFailed(`Action failed with error ${error}`);
+  });
 
 function getLastCommit(user, repo, token) {
   let url = `https://api.github.com/repos/${user}/${repo}/git/refs/heads/main`;
