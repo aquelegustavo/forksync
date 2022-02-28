@@ -1,5 +1,7 @@
 name: "Fork Sync JS"
 description: "Code to keep forked repository sync with GitHub Actions"
+icon: box
+color: orange
 inputs:
   UPSTREAM_USER: # id of input
     description: "Origin repository user"
